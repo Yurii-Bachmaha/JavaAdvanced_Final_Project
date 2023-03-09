@@ -2,34 +2,51 @@ package project.domain;
 
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table
 public class Certificate {
 
-	private Integer certificate_id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
+
+	@ManyToOne
+	@JoinColumn(name = "user_fk_id", nullable = false)
 	private User user;
+
+	@Enumerated(EnumType.STRING)
 	private Subject subject;
 
 	public Certificate() {
 	}
 
 	public Certificate(User user, Subject subject) {
-		super();
 		this.user = user;
 		this.subject = subject;
 	}
 
-	public Certificate(Integer certificate_id, User user, Subject subject) {
-		super();
-		this.certificate_id = certificate_id;
+	public Certificate(Integer id, User user, Subject subject) {
+		this.id = id;
 		this.user = user;
 		this.subject = subject;
 	}
 
-	public Integer getCertificate_id() {
-		return certificate_id;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setCertificate_id(Integer certificate_id) {
-		this.certificate_id = certificate_id;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public User getUser() {
@@ -50,7 +67,7 @@ public class Certificate {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(certificate_id, subject, user);
+		return Objects.hash(id, subject, user);
 	}
 
 	@Override
@@ -62,13 +79,12 @@ public class Certificate {
 		if (getClass() != obj.getClass())
 			return false;
 		Certificate other = (Certificate) obj;
-		return Objects.equals(certificate_id, other.certificate_id) && subject == other.subject
-				&& Objects.equals(user, other.user);
+		return Objects.equals(id, other.id) && subject == other.subject && Objects.equals(user, other.user);
 	}
 
 	@Override
 	public String toString() {
-		return "Certificate [certificate_id=" + certificate_id + ", user=" + user + ", subject=" + subject + "]";
+		return "Certificate [id=" + id + ", user=" + user + ", subject=" + subject + "]";
 	}
 
 }

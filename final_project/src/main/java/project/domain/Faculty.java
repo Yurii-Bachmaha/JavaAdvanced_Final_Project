@@ -2,10 +2,25 @@ package project.domain;
 
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table
 public class Faculty {
 
-	private Integer faculty_id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
+
+	@Column
 	private String name;
+
+	@Column(name = "number_of_students")
 	private Integer numberOfStudents;
 
 	public Faculty() {
@@ -17,18 +32,18 @@ public class Faculty {
 		this.numberOfStudents = numberOfStudents;
 	}
 
-	public Faculty(Integer faculty_id, String name, Integer numberOfStudents) {
-		this.faculty_id = faculty_id;
+	public Faculty(Integer id, String name, Integer numberOfStudents) {
+		this.id = id;
 		this.name = name;
 		this.numberOfStudents = numberOfStudents;
 	}
 
-	public Integer getFaculty_id() {
-		return faculty_id;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setFaculty_id(Integer faculty_id) {
-		this.faculty_id = faculty_id;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -49,7 +64,7 @@ public class Faculty {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(faculty_id, name, numberOfStudents);
+		return Objects.hash(id, name, numberOfStudents);
 	}
 
 	@Override
@@ -61,13 +76,13 @@ public class Faculty {
 		if (getClass() != obj.getClass())
 			return false;
 		Faculty other = (Faculty) obj;
-		return Objects.equals(faculty_id, other.faculty_id) && Objects.equals(name, other.name)
+		return Objects.equals(id, other.id) && Objects.equals(name, other.name)
 				&& Objects.equals(numberOfStudents, other.numberOfStudents);
 	}
 
 	@Override
 	public String toString() {
-		return "Faculty [faculty_id=" + faculty_id + ", name=" + name + ", numberOfStudents=" + numberOfStudents + "]";
+		return "Faculty [id=" + id + ", name=" + name + ", numberOfStudents=" + numberOfStudents + "]";
 	}
 
 }

@@ -1,42 +1,100 @@
 package project.domain;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table
 public class User {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
+
+	@Column(name = "first_name")
 	private String firstName;
+
+	@Column(name = "last_name")
 	private String lastName;
+
+	@Column
 	private Integer age;
+
+	@Column(unique = true)
 	private String email;
+
+	@Column
 	private String password;
+
+	@Column(name = "password_confirm")
+	private String passwordConfirm;
+
+	@Enumerated(EnumType.STRING)
 	private UserRole role;
-	private Integer сertificateId;
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Certificate> certificates = new HashSet<>();
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "faculty_id", referencedColumnName = "id")
+	private Faculty faculties;
 
 	public User() {
 	}
 
-	public User(String firstName, String lastName, Integer age, String email, String password, UserRole role,
-			Integer сertificateId) {
+	public User(String firstName, String lastName, Integer age, String email, String password, String passwordConfirm,
+			UserRole role, Set<Certificate> certificates, Faculty faculties) {
+		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.age = age;
 		this.email = email;
 		this.password = password;
+		this.passwordConfirm = passwordConfirm;
 		this.role = role;
-		this.сertificateId = сertificateId;
+		this.certificates = certificates;
+		this.faculties = faculties;
 	}
 
 	public User(Integer id, String firstName, String lastName, Integer age, String email, String password,
-			UserRole role, Integer сertificateId) {
+			String passwordConfirm, UserRole role, Set<Certificate> certificates, Faculty faculties) {
+		super();
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.age = age;
 		this.email = email;
 		this.password = password;
+		this.passwordConfirm = passwordConfirm;
 		this.role = role;
-		this.сertificateId = сertificateId;
+		this.certificates = certificates;
+		this.faculties = faculties;
+	}
+	
+	public User(User user) {
+		this.id = user.id;
+		this.firstName = user.firstName;
+		this.lastName = user.lastName;
+		this.age = user.age;
+		this.email = user.email;
+		this.password = user.password;
+		this.passwordConfirm = user.passwordConfirm;
+		this.role = user.role;
 	}
 
 	public Integer getId() {
@@ -87,6 +145,14 @@ public class User {
 		this.password = password;
 	}
 
+	public String getPasswordConfirm() {
+		return passwordConfirm;
+	}
+
+	public void setPasswordConfirm(String passwordConfirm) {
+		this.passwordConfirm = passwordConfirm;
+	}
+
 	public UserRole getRole() {
 		return role;
 	}
@@ -95,17 +161,26 @@ public class User {
 		this.role = role;
 	}
 
-	public Integer getСertificateId() {
-		return сertificateId;
+	public Set<Certificate> getCertificates() {
+		return certificates;
 	}
 
-	public void setСertificateId(Integer сertificateId) {
-		this.сertificateId = сertificateId;
+	public void setCertificates(Set<Certificate> certificates) {
+		this.certificates = certificates;
+	}
+
+	public Faculty getFaculties() {
+		return faculties;
+	}
+
+	public void setFaculties(Faculty faculties) {
+		this.faculties = faculties;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(age, email, firstName, id, lastName, password, role, сertificateId);
+		return Objects.hash(age, certificates, email, faculties, firstName, id, lastName, password, passwordConfirm,
+				role);
 	}
 
 	@Override
@@ -117,16 +192,18 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return Objects.equals(age, other.age) && Objects.equals(email, other.email)
+		return Objects.equals(age, other.age) && Objects.equals(certificates, other.certificates)
+				&& Objects.equals(email, other.email) && Objects.equals(faculties, other.faculties)
 				&& Objects.equals(firstName, other.firstName) && Objects.equals(id, other.id)
 				&& Objects.equals(lastName, other.lastName) && Objects.equals(password, other.password)
-				&& role == other.role && Objects.equals(сertificateId, other.сertificateId);
+				&& Objects.equals(passwordConfirm, other.passwordConfirm) && role == other.role;
 	}
 
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + ", email="
-				+ email + ", password=" + password + ", role=" + role + ", сertificateId=" + сertificateId + "]";
+				+ email + ", password=" + password + ", passwordConfirm=" + passwordConfirm + ", role=" + role
+				+ ", certificates=" + certificates + ", faculties=" + faculties + "]";
 	}
 
 }

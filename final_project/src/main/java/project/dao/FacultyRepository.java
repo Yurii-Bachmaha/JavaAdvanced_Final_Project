@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import project.domain.Faculty;
 
 @Repository
-public interface FacultyRepository extends JpaRepository<FacultyRepository, Integer> {
+public interface FacultyRepository extends JpaRepository<Faculty, Integer> {
 	
 	Faculty findByName(String name);
 	
