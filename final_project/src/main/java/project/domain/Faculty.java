@@ -1,20 +1,24 @@
 package project.domain;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table(name="faculties")
 public class Faculty {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="faculty_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	@Column
@@ -23,19 +27,23 @@ public class Faculty {
 	@Column(name = "number_of_students")
 	private Integer numberOfStudents;
 
+	@OneToMany(mappedBy = "faculty")
+	private Set<ApplicationForm> applicationForms = new HashSet<>();
+
 	public Faculty() {
 	}
 
-	public Faculty(String name, Integer numberOfStudents) {
-		super();
+	public Faculty(String name, Integer numberOfStudents, Set<ApplicationForm> applicationForms) {
 		this.name = name;
 		this.numberOfStudents = numberOfStudents;
+		this.applicationForms = applicationForms;
 	}
 
-	public Faculty(Integer id, String name, Integer numberOfStudents) {
+	public Faculty(Integer id, String name, Integer numberOfStudents, Set<ApplicationForm> applicationForms) {
 		this.id = id;
 		this.name = name;
 		this.numberOfStudents = numberOfStudents;
+		this.applicationForms = applicationForms;
 	}
 
 	public Integer getId() {
@@ -62,9 +70,17 @@ public class Faculty {
 		this.numberOfStudents = numberOfStudents;
 	}
 
+	public Set<ApplicationForm> getApplicationForms() {
+		return applicationForms;
+	}
+
+	public void setApplicationForms(Set<ApplicationForm> applicationForms) {
+		this.applicationForms = applicationForms;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, numberOfStudents);
+		return Objects.hash(applicationForms, id, name, numberOfStudents);
 	}
 
 	@Override
@@ -76,13 +92,14 @@ public class Faculty {
 		if (getClass() != obj.getClass())
 			return false;
 		Faculty other = (Faculty) obj;
-		return Objects.equals(id, other.id) && Objects.equals(name, other.name)
-				&& Objects.equals(numberOfStudents, other.numberOfStudents);
+		return Objects.equals(applicationForms, other.applicationForms) && Objects.equals(id, other.id)
+				&& Objects.equals(name, other.name) && Objects.equals(numberOfStudents, other.numberOfStudents);
 	}
 
 	@Override
 	public String toString() {
-		return "Faculty [id=" + id + ", name=" + name + ", numberOfStudents=" + numberOfStudents + "]";
+		return "Faculty [id=" + id + ", name=" + name + ", numberOfStudents=" + numberOfStudents + ", applicationForms="
+				+ applicationForms + "]";
 	}
 
 }

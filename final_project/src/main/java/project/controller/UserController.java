@@ -24,8 +24,8 @@ public class UserController {
 			return "authentication";
 		}
 		userService.save(userForm);
-		
-		return "redirect:/home";
+
+		return "authentication";
 	}
 
 	@RequestMapping(value = { "/", "/authentication" }, method = RequestMethod.GET)
@@ -39,11 +39,6 @@ public class UserController {
 			model.addAttribute("message", "You have been logged out successfully.");
 
 		return "authentication";
-	}
-
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String welcome(Model model) {
-		return "home";
 	}
 
 }

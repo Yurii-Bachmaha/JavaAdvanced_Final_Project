@@ -30,7 +30,10 @@ public class WebSecurityConfig {
 	protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 		.antMatchers("/").permitAll()
-		.antMatchers("/home").access("hasRole('APPLICANT')")
+		.antMatchers("/home").authenticated()
+		.antMatchers("/addFaculty").authenticated()
+		.antMatchers("/addCertificate").authenticated()
+		.antMatchers("/applyToFaculty").authenticated()
 		.anyRequest().permitAll().and()
 		
 		.formLogin().loginPage("/authentication")

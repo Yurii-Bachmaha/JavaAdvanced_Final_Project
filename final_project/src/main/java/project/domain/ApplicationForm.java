@@ -2,6 +2,7 @@ package project.domain;
 
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,15 +16,16 @@ import javax.persistence.Table;
 public class ApplicationForm {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="application_form_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	@ManyToOne
-	@JoinColumn(name = "user_fk_id", nullable = false)
+	@JoinColumn(name = "user_fk_id", referencedColumnName = "user_id" ,nullable = false)
 	private User user;
 	
 	@ManyToOne
-	@JoinColumn(name = "faculty_fk_id", nullable = false)
+	@JoinColumn(name = "faculty_fk_id", referencedColumnName = "faculty_id", nullable = false)
 	private Faculty faculty;
 
 	public ApplicationForm() {

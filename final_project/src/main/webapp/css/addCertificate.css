@@ -1,0 +1,6 @@
+div.certificate-input{
+	display: flex;
+    margin-bottom: 15px;
+    align-items: center;
+    justify-content: space-between;
+}

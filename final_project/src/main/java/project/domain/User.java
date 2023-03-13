@@ -23,7 +23,8 @@ import javax.persistence.Table;
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="user_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	@Column(name = "first_name")
@@ -51,7 +52,7 @@ public class User {
 	private Set<Certificate> certificates = new HashSet<>();
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "faculty_id", referencedColumnName = "id")
+	@JoinColumn(name = "faculty_id", referencedColumnName = "faculty_id")
 	private Faculty faculties;
 
 	public User() {
