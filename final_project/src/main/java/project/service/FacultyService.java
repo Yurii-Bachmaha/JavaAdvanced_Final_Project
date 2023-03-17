@@ -29,5 +29,9 @@ public class FacultyService {
 	public List<Faculty> getAll(){
 		return facultyRepository.findAll();
 	}
+	
+	public List<Faculty> readAllFaculties(){
+		return facultyRepository.findAll();
+	}
 
 }

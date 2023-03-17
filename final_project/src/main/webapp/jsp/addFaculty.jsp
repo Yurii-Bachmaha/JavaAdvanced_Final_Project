@@ -34,6 +34,12 @@
                             <form:errors path="numberOfStudents"></form:errors>
                         </div>
                     </spring:bind>
+                    <spring:bind path="minimumPassingScore">
+                        <div class="form-group ${status.error ? 'has-error' : ''}">
+                            <form:input type="number" class="form-control" path="minimumPassingScore" placeholder="Minimum passing score" autofocus="true"></form:input>
+                            <form:errors path="minimumPassingScore"></form:errors>
+                        </div>
+                    </spring:bind>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form:form>
             </div>

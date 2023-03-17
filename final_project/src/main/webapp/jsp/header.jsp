@@ -26,6 +26,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/addFaculty">Add faculty</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/candidate">Application forms</a>
+                </li>
             </ul>
 
             <c:if test="${pageContext.request.userPrincipal.name != null}">

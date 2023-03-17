@@ -34,6 +34,7 @@ public class WebSecurityConfig {
 		.antMatchers("/addFaculty").authenticated()
 		.antMatchers("/addCertificate").authenticated()
 		.antMatchers("/applyToFaculty").authenticated()
+		.antMatchers("/candidate").authenticated()
 		.anyRequest().permitAll().and()
 		
 		.formLogin().loginPage("/authentication")

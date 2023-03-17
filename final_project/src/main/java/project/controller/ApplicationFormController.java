@@ -1,5 +1,10 @@
 package project.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -36,13 +41,14 @@ public class ApplicationFormController {
 	
 	public User getCurrentUser() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		return userService.findByEmail(auth.getName());
+		return userService.getByEmail(auth.getName());
 	}
 	
 	@RequestMapping(value = "/applyToFaculty", method = RequestMethod.GET)
 	private ModelAndView getFaculty() {
 		ModelAndView map = new ModelAndView("applyToFaculty");
 		map.addObject("faculties", facultyService.getAll());
+		map.addObject("subjectsViewer", certificateService.getByUserId(getCurrentUser().getId()).getEvaluation());
 		return map;
 	}
 
@@ -59,10 +65,40 @@ public class ApplicationFormController {
 		
 		applicationForm.setFaculty(faculty);
 		applicationForm.setUser(user);
-		applicationFormService.add(applicationForm);
+		
+		if(certificate.getEvaluation().getTotalGrades() > faculty.getMinimumPassingScore() & findCreateStatmentForUser) {
+			applicationFormService.add(applicationForm);
+		}
 
 		return new ModelAndView("redirect:/applyToFaculty");
 		
+	}
+	
+	@RequestMapping(value = "/candidates", method = RequestMethod.GET)
+	private ModelAndView viewCandidatesInFaculty(@RequestParam Integer facultyId,HttpServletRequest req) {
+		ModelAndView map = new ModelAndView("candidate");
+		req.setAttribute("mode", "VIEW_CANDIDATE");
+		List<User> users = new ArrayList<>();
+		List<ApplicationForm> facultyIncludCandidates = applicationFormService.getAllByFacultyId(facultyId);
+		facultyIncludCandidates.stream().forEach(x -> users.add(x.getUser()));
+		map.addObject("candidates", users);
+		map.addObject("subjectsViewer", certificateService.getByUserId(getCurrentUser().getId()).getEvaluation());
+		return map;
+	}
+	
+	@RequestMapping(value = "/candidate", method = RequestMethod.GET)
+	private ModelAndView viewFaculty(HttpServletRequest req) {
+		ModelAndView map = new ModelAndView("candidate");
+		req.setAttribute("mode", "VIEW_FACULTY");
+		map.addObject("faculties",  facultyService.getAll());
+		return map;
+	}
+	
+	@RequestMapping(value = "/deleteCandidate", method = RequestMethod.GET)
+	private ModelAndView deleteCandidate(@RequestParam Integer userId) {
+		ModelAndView map = new ModelAndView("candidate");
+		applicationFormService.deleteByUserId(userId);
+		return new ModelAndView("redirect:/candidate");
 	}
 	
 }

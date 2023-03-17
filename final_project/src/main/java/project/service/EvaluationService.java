@@ -33,4 +33,8 @@ public class EvaluationService {
 		return evaluationRepository.save(subjectDB);
 	}
 	
+	public void delete(Evaluation evaluation) {
+		evaluationRepository.delete(evaluation);
+	}
+	
 }

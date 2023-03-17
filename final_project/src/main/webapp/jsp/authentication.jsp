@@ -15,61 +15,35 @@
 </head>
 
 <body>
-
     <div class="container" id="container">
         <div class="form-container sign-up-container">
-            <form:form method="POST" modelAttribute="userForm" class="form-signin">
-                <h2>Create your account</h2>
-
-                <spring:bind path="firstName">
-                    <div class="form-group ${status.error ? 'has-error' : ''}">
-                        <form:input type="text" path="firstName" class="form-control" placeholder="First name"
-                            autofocus="true"></form:input>
-                        <form:errors path="firstName"></form:errors>
+            <form:form method="POST" action="${contextPath}/registration" enctype="multipart/form-data">
+            	<h2>Create your account</h2>
+            		<div class="form-group">             
+                        <input type="text" name="firstName" class="form-control" placeholder="First name">
                     </div>
-                </spring:bind>
-
-                <spring:bind path="lastName">
-                    <div class="form-group ${status.error ? 'has-error' : ''}">
-                        <form:input type="text" path="lastName" class="form-control" placeholder="Last name"
-                            autofocus="true"></form:input>
-                        <form:errors path="lastName"></form:errors>
+                    <div class="form-group">             
+                        <input type="text" name="lastName" class="form-control" placeholder="Last name">
                     </div>
-                </spring:bind>
-
-                <spring:bind path="email">
-                    <div class="form-group ${status.error ? 'has-error' : ''}">
-                        <form:input type="text" path="email" class="form-control" placeholder="Email"
-                         autofocus="true"></form:input>
-                        <form:errors path="email"></form:errors>
+                    <div class="form-group">             
+                        <input type="text" name="email" class="form-control" placeholder="Email">
                     </div>
-                </spring:bind>
-
-                <spring:bind path="age">
-                    <div class="form-group ${status.error ? 'has-error' : ''}">
-                        <form:input type="number" path="age" class="form-control" placeholder="Age"></form:input>
-                        <form:errors path="password"></form:errors>
+                    <div class="form-group">             
+                        <input type="number" name="age" class="form-control" placeholder="Age">
                     </div>
-                </spring:bind>
-
-                <spring:bind path="password">
-                    <div class="form-group ${status.error ? 'has-error' : ''}">
-                        <form:input type="password" path="password" class="form-control" placeholder="Password"></form:input>
-                        <form:errors path="password"></form:errors>
+                    <div class="form-group">             
+                        <input type="password" name="password" class="form-control" placeholder="Password">
                     </div>
-                </spring:bind>
-
-                <spring:bind path="passwordConfirm">
-                    <div class="form-group ${status.error ? 'has-error' : ''}">
-                        <form:input type="password" path="passwordConfirm" class="form-control"
-                            placeholder="Confirm your password"></form:input>
-                        <form:errors path="passwordConfirm"></form:errors>
+                    <div class="form-group">             
+                        <input type="password" name="passwordConfirm" class="form-control" placeholder="Password confirm">
                     </div>
-                </spring:bind>
-
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
-            </form:form>
-        </div>
+                    <div class="form-group">             
+                        <input type="file" name="encodedImage" class="form-control">
+                    </div>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+				</form:form>
+        	</div>
 
         <div class="form-container sign-in-container">
             <form method="POST" action="${contextPath}/authentication" class="form-signin login">

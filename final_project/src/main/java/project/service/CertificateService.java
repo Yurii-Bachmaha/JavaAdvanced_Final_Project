@@ -32,7 +32,11 @@ public class CertificateService {
 			certificate = certificateOpt.get();
 		}
 		
-		return  certificate ;
+		return  certificate;
+	}
+	
+	public void delete(Certificate certificate) {
+		certificateRepository.delete(certificate);
 	}
 	
 }

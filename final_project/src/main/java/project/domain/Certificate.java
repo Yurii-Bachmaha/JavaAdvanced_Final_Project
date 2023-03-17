@@ -25,7 +25,7 @@ public class Certificate {
 	private User user;
 
 	@ManyToOne
-	@JoinColumn(name = "subject_fk_id", referencedColumnName = "evaluation_id", nullable = false)
+	@JoinColumn(name = "evaluation_fk_id", referencedColumnName = "evaluation_id", nullable = false)
 	private Evaluation evaluation;
 
 	public Certificate() {

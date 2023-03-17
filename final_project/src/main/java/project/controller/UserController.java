@@ -1,14 +1,17 @@
 package project.controller;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
-import project.domain.User;
+import project.service.UserDTO;
 import project.service.UserService;
 
 @Controller
@@ -16,21 +19,32 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
+	
+	@RequestMapping(value = "/registration", method = RequestMethod.GET)
+	public ModelAndView viewPageRegistration() {
+		ModelAndView map = new ModelAndView("registration");
+		return map;
+	}
 
-	@RequestMapping(value = { "/", "/authentication" }, method = RequestMethod.POST)
-	public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
-
-		if (bindingResult.hasErrors()) {
-			return "authentication";
+	@RequestMapping(value = { "/", "/registration" }, method = RequestMethod.POST)
+	public ModelAndView registration(
+			@RequestParam String firstName,
+			@RequestParam String lastName,
+			@RequestParam String email,
+			@RequestParam Integer age,
+			@RequestParam String password,
+			@RequestParam String passwordConfirm,
+			@RequestParam MultipartFile encodedImage)throws IOException {
+		
+		if(!userService.findByEmail(email)) {
+			userService.save(UserDTO.createUser(firstName, lastName, email, age, password, passwordConfirm, encodedImage));
 		}
-		userService.save(userForm);
-
-		return "authentication";
+	
+		return new ModelAndView("authentication");
 	}
 
 	@RequestMapping(value = { "/", "/authentication" }, method = RequestMethod.GET)
 	public String login(Model model, String error, String logout) {
-		model.addAttribute("userForm", new User());
 
 		if (error != null)
 			model.addAttribute("error", "Your username or password is invalid.");

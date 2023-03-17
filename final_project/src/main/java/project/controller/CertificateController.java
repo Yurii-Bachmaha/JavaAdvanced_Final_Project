@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import project.domain.Certificate;
 import project.domain.Evaluation;
@@ -31,13 +31,13 @@ public class CertificateController {
 	
 	public User getCurrentUser() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		return userService.findByEmail(auth.getName());
+		return userService.getByEmail(auth.getName());
 	}
 	
 	@RequestMapping(value = "/addCertificate", method = RequestMethod.GET)
-    public String registration(Model model) {
-
-        return "addCertificate";
+    public ModelAndView registration() {
+		ModelAndView map = new ModelAndView("addCertificate");
+        return map;
     }
 	
 	@RequestMapping(value = "/addCertificate", method = RequestMethod.POST)

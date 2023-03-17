@@ -30,4 +30,9 @@ public class ApplicationFormService {
 		return applicationFormRepository.save(applicationForm);
 	}
 	
+	public void deleteByUserId(Integer id) {
+		ApplicationForm applicationForm = applicationFormRepository.findAll().stream().filter(x-> x.getUser().getId()==id).findFirst().get();
+		applicationFormRepository.delete(applicationForm);
+	}
+	
 }

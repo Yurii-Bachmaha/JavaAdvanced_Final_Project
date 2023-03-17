@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -23,7 +24,7 @@ import javax.persistence.Table;
 public class User {
 
 	@Id
-	@Column(name="user_id")
+	@Column(name = "user_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
@@ -44,6 +45,9 @@ public class User {
 
 	@Column(name = "password_confirm")
 	private String passwordConfirm;
+
+	@Lob
+	private String encodedImage;
 
 	@Enumerated(EnumType.STRING)
 	private UserRole role;
@@ -86,7 +90,7 @@ public class User {
 		this.certificates = certificates;
 		this.faculties = faculties;
 	}
-	
+
 	public User(User user) {
 		this.id = user.id;
 		this.firstName = user.firstName;
@@ -152,6 +156,14 @@ public class User {
 
 	public void setPasswordConfirm(String passwordConfirm) {
 		this.passwordConfirm = passwordConfirm;
+	}
+
+	public String getEncodedImage() {
+		return encodedImage;
+	}
+
+	public void setEncodedImage(String encodedImage) {
+		this.encodedImage = encodedImage;
 	}
 
 	public UserRole getRole() {
