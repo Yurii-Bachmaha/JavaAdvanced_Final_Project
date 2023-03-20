@@ -16,7 +16,7 @@ import project.security.CustomUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
-@ComponentScan(basePackageClasses=CustomUserDetailsService.class)
+@ComponentScan(basePackageClasses = CustomUserDetailsService.class)
 public class WebSecurityConfig {
 
 	@Lazy
