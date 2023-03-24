@@ -1,5 +1,6 @@
 package project.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import project.dao.ApplicationFormRepository;
 import project.domain.ApplicationForm;
+import project.domain.User;
 
 @Service
 public class ApplicationFormService {
@@ -29,13 +31,20 @@ public class ApplicationFormService {
 	}
 		
 	public List<ApplicationForm> getAllByUserId(Integer userId){
-		logger.info("Got all users by ID field: "+ userId);
 		return applicationFormRepository.getAllByUserId(userId);
 	}
 	
 	public ApplicationForm add(ApplicationForm applicationForm) {
-		logger.info("A new application form has been created: "+ applicationForm);
+		logger.info("A new application form has been created");
 		return applicationFormRepository.save(applicationForm);
+	}
+	
+	public List<User> getUsersByFacultyId(Integer facultyId){
+		logger.info("Get users item by faculty id = " +facultyId);
+		List<User> users = new ArrayList<>();
+		List<ApplicationForm> appForms = getAllByFacultyId(facultyId);
+		appForms.stream().forEach(x -> users.add(x.getUser()));
+		return users;
 	}
 	
 	public void deleteByUserId(Integer id) {

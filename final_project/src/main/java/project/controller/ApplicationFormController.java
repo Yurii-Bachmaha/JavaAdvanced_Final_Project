@@ -48,7 +48,7 @@ public class ApplicationFormController {
 	private ModelAndView getFaculty() {
 		ModelAndView map = new ModelAndView("applyToFaculty");
 		map.addObject("faculties", facultyService.getAll());
-		map.addObject("subjectsViewer", certificateService.getByUserId(getCurrentUser().getId()).getEvaluation());
+		map.addObject("subjectsViewer", certificateService.getByUserId(getCurrentUser().getId()).getEvaluation().getTotalGrades());
 		return map;
 	}
 
@@ -82,7 +82,17 @@ public class ApplicationFormController {
 		List<ApplicationForm> facultyIncludCandidates = applicationFormService.getAllByFacultyId(facultyId);
 		facultyIncludCandidates.stream().forEach(x -> users.add(x.getUser()));
 		map.addObject("candidates", users);
-		map.addObject("subjectsViewer", certificateService.getByUserId(getCurrentUser().getId()).getEvaluation());
+		
+		return map;
+	}
+	
+	@RequestMapping(value = "/viewProfileCandidates", method = RequestMethod.GET)
+	private ModelAndView viewProfileCandidates(@RequestParam Integer userId, HttpServletRequest req) {
+		req.setAttribute("mode", "VIEW_CANDIDATE");
+		ModelAndView map = new ModelAndView("home");
+		map.addObject("userViewer",  userService.getById(userId));
+		map.addObject( "subjectsViewer", certificateService.getByUserId(userId).getEvaluation());
+		
 		return map;
 	}
 	

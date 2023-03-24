@@ -16,7 +16,7 @@ import project.security.CustomUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
-@ComponentScan(basePackageClasses = CustomUserDetailsService.class)
+@ComponentScan(basePackageClasses=CustomUserDetailsService.class)
 public class WebSecurityConfig {
 
 	@Lazy
@@ -31,10 +31,11 @@ public class WebSecurityConfig {
 		http.authorizeRequests()
 		.antMatchers("/").permitAll()
 		.antMatchers("/home").authenticated()
-		.antMatchers("/addFaculty").authenticated()
-		.antMatchers("/addCertificate").authenticated()
-		.antMatchers("/applyToFaculty").authenticated()
-		.antMatchers("/candidate").authenticated()
+		.antMatchers("/addFaculty").access("hasRole('ROLE_ADMIN')")
+		.antMatchers("/addCertificate").access("hasRole('ROLE_APPLICANT')")
+		.antMatchers("/applyToFaculty").access("hasRole('ROLE_APPLICANT')")
+		.antMatchers("/candidate").access("hasRole('ROLE_ADMIN')")
+		.antMatchers("/candidates{faculty.id}").access("hasRole('ROLE_ADMIN')")
 		.anyRequest().permitAll().and()
 		
 		.formLogin().loginPage("/authentication")

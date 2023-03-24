@@ -1,0 +1,11 @@
+.table td, .table th {
+    vertical-align: bottom !important; 
+}
+
+a.btn{
+	border: none;
+}
+
+a.delete-candidate:hover{
+	background-color: #D22D2E;
+}

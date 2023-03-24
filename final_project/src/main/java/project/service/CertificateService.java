@@ -30,7 +30,6 @@ public class CertificateService {
 	}
 	
 	public Certificate getByUserId(Integer userId) {
-		logger.info("User received by field ID: "+ userId);
 		List<Certificate> certificates = certificateRepository.findAll();
 		Certificate certificate = null;
 	

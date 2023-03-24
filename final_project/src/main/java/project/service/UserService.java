@@ -37,5 +37,9 @@ public class UserService {
 		logger.info("Found user by email field: " + email);
     	return userRepository.findByEmail(email).isPresent();
     }
+	
+	public User getById(Integer userId) {
+    	return userRepository.getReferenceById(userId);
+    }
 
 }

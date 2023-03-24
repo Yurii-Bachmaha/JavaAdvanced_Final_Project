@@ -22,11 +22,11 @@
         <div class="card p-4" style="width: 30%">
             <form:form method="POST" action="${contextPath}/addCertificate" enctype="form-data">
                 <div class="certificate-input">
-                    <h5>Ukrainian language</h5>
+                    <h5>Native language</h5>
                     <input type="number" class="form-control" name="firstSubject" style="margin-bottom: 15px; width: 70px;" />
                 </div>
                 <div class="certificate-input">
-                    <h5>Mathematic</h5>
+                    <h5>Mathematics</h5>
                     <input type="number" class="form-control" name="secondSubject" style="margin-bottom: 15px; width: 70px;" />
                 </div>
                 <div class="certificate-input">
@@ -34,11 +34,11 @@
                     <input type="number" class="form-control" name="thirdSubject" style="margin-bottom: 15px; width: 70px;" />
                 </div>
                 <div class="certificate-input">
-                    <h5>Sum schools certicifate</h5>
+                    <h5>Sum school certificate</h5>
                     <input type="number" class="form-control" name="sumSchoolsCerticifate" style="margin-bottom: 15px; width: 70px;" />
                 </div>
                 <div>
-                    <button type="submit" class="btn btn-primary">Add/update</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
                 </div>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             </form:form>

@@ -24,8 +24,8 @@
         <div class="w3-container d-flex flex-wrap">
             <c:if test="${not empty faculties}">
                 <c:forEach items="${faculties}" var="currentFaculties">
-
                     <div class="card" style="width: 28%; margin: 2%;">
+                    
                         <div class="w3-container w3-center d-flex flex-column justify-content-between"
                             style="height: 150px">
                             <h3>Name faculty: ${currentFaculties.name}</h3>
@@ -34,8 +34,15 @@
                         </div>
 
                         <form:form action="${contextPath}/applyToFaculty" method="POST" enctype="multipart/form-data">                       
-                            <input type="hidden" value="${currentFaculties.id}" name="facultyId">                                         
-                        	<input id="apply" type="submit" class="btn btn-primary" onclick="action()" style="width: 100%" value="+ apply to faculty">                       	                                                    
+                            <input type="hidden" value="${currentFaculties.id}" name="facultyId">        
+                            <c:choose>
+                            	<c:when test="${subjectsViewer <= currentFaculties.minimumPassingScore}">                          		
+    								<input type="submit" class="btn btn-danger" style="width: 100%" disabled="disabled" value="Your overall score is not enough!">							
+                            	</c:when>
+                            	<c:when test="${subjectsViewer > currentFaculties.minimumPassingScore}">
+                            		<input id = "applyToFaculty" type="submit" class="btn btn-primary" style="width: 100%" value="+ apply to faculty">
+                            	</c:when>                           	
+                            </c:choose>                                                  	                        	                       	                                                    
                         </form:form>
                     </div>
                 </c:forEach>

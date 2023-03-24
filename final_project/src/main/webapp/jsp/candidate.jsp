@@ -14,6 +14,7 @@
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="css/candidate.css" rel="stylesheet" type="text/css">
 </head>
 
 <body style="background-color: #eee;">
@@ -29,7 +30,7 @@
 							<th>Id</th>
 							<th>First name</th>
 							<th>Last Name</th>
-							<th>Total grades</th>
+							<th>View profile</th>
 							<th>Delete</th>
 						</tr>
 					</thead>
@@ -38,9 +39,9 @@
 							<tr>
 								<td>${candidate.id}</td>
 								<td>${candidate.firstName}</td>
-								<td>${candidate.lastName}</td>
-								<td>${subjectsViewer.totalGrades}</td>								
-								<td><a href = "deleteCandidate?userId=${candidate.id}">delete</a></td>
+								<td>${candidate.lastName}</td>								
+								<td><a class = "btn btn-info btn-sm" href="viewProfileCandidates?userId=${candidate.id}">view</a></td>							
+								<td><a class = "btn btn-info btn-sm delete-candidate" href = "deleteCandidate?userId=${candidate.id}">delete</a></td>
 							</tr>
 						</c:forEach>
 					</tbody>

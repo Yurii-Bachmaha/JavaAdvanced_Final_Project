@@ -23,7 +23,7 @@ public class UserDTO {
 		user.setPassword(bCryptPasswordEncoder.encode(password));
 		user.setPasswordConfirm(bCryptPasswordEncoder.encode(passwordConfirm));
 		user.setEncodedImage(Base64.getEncoder().encodeToString(encodedImage.getBytes()));
-		user.setRole(UserRole.APPLICANT);
+		user.setRole(UserRole.ROLE_APPLICANT);
 		
 		return user;
 	}
