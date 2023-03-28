@@ -1,8 +1,8 @@
 package project.domain;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -53,7 +53,7 @@ public class User {
 	private UserRole role;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<Certificate> certificates = new HashSet<>();
+	private List<Certificate> certificates = new ArrayList<>();
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "faculty_id", referencedColumnName = "faculty_id")
@@ -63,7 +63,7 @@ public class User {
 	}
 
 	public User(String firstName, String lastName, Integer age, String email, String password, String passwordConfirm,
-			UserRole role, Set<Certificate> certificates, Faculty faculties) {
+			UserRole role, List<Certificate> certificates, Faculty faculties) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -77,7 +77,7 @@ public class User {
 	}
 
 	public User(Integer id, String firstName, String lastName, Integer age, String email, String password,
-			String passwordConfirm, UserRole role, Set<Certificate> certificates, Faculty faculties) {
+			String passwordConfirm, UserRole role, List<Certificate> certificates, Faculty faculties) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -174,11 +174,11 @@ public class User {
 		this.role = role;
 	}
 
-	public Set<Certificate> getCertificates() {
+	public List<Certificate> getCertificates() {
 		return certificates;
 	}
 
-	public void setCertificates(Set<Certificate> certificates) {
+	public void setCertificates(List<Certificate> certificates) {
 		this.certificates = certificates;
 	}
 

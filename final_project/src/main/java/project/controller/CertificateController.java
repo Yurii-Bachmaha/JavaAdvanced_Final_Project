@@ -56,9 +56,6 @@ public class CertificateController {
 			certificate.setUser(getCurrentUser());
 			certificate.setEvaluation(evaluation);
 			certificateService.add(certificate);
-		}else {
-			Evaluation evaluationGet = certificateDB.getEvaluation();
-			evaluationService.update(evaluationGet,firstSubject, secondSubject, thirdSubject, sumSchoolsCerticifate);
 		}
 		
 		return "redirect:/home";

@@ -1,8 +1,8 @@
 package project.domain;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -40,13 +40,13 @@ public class Evaluation {
 
 	@OneToMany(mappedBy = "evaluation", cascade = { CascadeType.PERSIST,
 			CascadeType.MERGE }, fetch = FetchType.EAGER, orphanRemoval = true)
-	private Set<Certificate> сertificats = new HashSet<>();
-
+	private List<Certificate> сertificats = new ArrayList<>();
+	
 	public Evaluation() {
 	}
 
 	public Evaluation(Integer firstSubject, Integer secondSubject, Integer thirdSubject, Integer sumSchoolsCerticifate,
-			Integer totalGrades, Set<Certificate> сertificats) {
+			Integer totalGrades, List<Certificate> сertificats) {
 		this.firstSubject = firstSubject;
 		this.secondSubject = secondSubject;
 		this.thirdSubject = thirdSubject;
@@ -56,7 +56,7 @@ public class Evaluation {
 	}
 
 	public Evaluation(Integer id, Integer firstSubject, Integer secondSubject, Integer thirdSubject,
-			Integer sumSchoolsCerticifate, Integer totalGrades, Set<Certificate> сertificats) {
+			Integer sumSchoolsCerticifate, Integer totalGrades, List<Certificate> сertificats) {
 		this.id = id;
 		this.firstSubject = firstSubject;
 		this.secondSubject = secondSubject;
@@ -114,11 +114,11 @@ public class Evaluation {
 		this.totalGrades = totalGrades;
 	}
 
-	public Set<Certificate> getСertificats() {
+	public List<Certificate> getСertificats() {
 		return сertificats;
 	}
 
-	public void setСertificats(Set<Certificate> сertificats) {
+	public void setСertificats(List<Certificate> сertificats) {
 		this.сertificats = сertificats;
 	}
 

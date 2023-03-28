@@ -28,18 +28,6 @@ public class EvaluationService {
 		return evaluationRepository.save(evaluation);
 	}
 	
-	public Evaluation update(Evaluation evaluation,Integer firstSubject, Integer secondSubject, Integer thirdSubject, Integer sumSchoolsCerticifate) {
-		Evaluation subjectDB = evaluationRepository.getReferenceById(evaluation.getId());
-		subjectDB.setFirstSubject(firstSubject);
-		subjectDB.setSecondSubject(secondSubject);
-		subjectDB.setThirdSubject(thirdSubject);
-		subjectDB.setSumSchoolsCerticifate(sumSchoolsCerticifate);
-		subjectDB.setTotalGrades(firstSubject + secondSubject + thirdSubject + sumSchoolsCerticifate);
-		logger.info("Updated evaluation items: " + evaluation + " to :" + subjectDB);
-		
-		return evaluationRepository.save(subjectDB);
-	}
-	
 	public void delete(Evaluation evaluation) {
 		logger.info("Evaluations "+ evaluation + " was successfully removed");
 		evaluationRepository.delete(evaluation);
